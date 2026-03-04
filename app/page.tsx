@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [photo,setPhoto] = useState("");
   const [error,setError] = useState("");
 
-const handleLogin = (e) => {
+const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
   if (!email || !email.includes("@")) {
