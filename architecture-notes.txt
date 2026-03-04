@@ -1,0 +1,30 @@
+State Management:
+Used useReducer + Context API for centralized booking state.
+Chosen for simplicity and scalability without Redux overhead.
+
+API Failure:
+API simulates random failure.
+Error displayed using reusable Alert component.
+
+Loading States:
+Loader component shown while fetching rooms.
+
+Availability Logic:
+Used date overlap utility to prevent double bookings.
+
+Protected Routes:
+Middleware protects both /dashboard and /bookings.
+
+Pagination:
+Client-side pagination implemented.
+Prevents rendering large datasets at once.
+
+Scaling to 1000+ Rooms:
+- Server-side pagination
+- Virtualized lists (react-window)
+- API caching
+- Debounced search & filtering
+
+Why Context API:
+Application size is moderate.
+Redux would be unnecessary complexity.
