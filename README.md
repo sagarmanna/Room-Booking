@@ -4,7 +4,7 @@ This project is a Hotel Room Booking Dashboard UI built using Next.js, React, an
 The application allows users to browse rooms, filter them based on different criteria, and simulate a booking process.
 
 The goal of the project is to demonstrate component-based architecture, clean state management, and a responsive UI.
-
+Deployment Link : https://room-booking-bice.vercel.app/
 Features
 
 Room listing with card layout
