@@ -1,30 +1,85 @@
-State Management:
-Used useReducer + Context API for centralized booking state.
-Chosen for simplicity and scalability without Redux overhead.
+Edge Case Handling
+1. What happens if the API fails?
 
-API Failure:
-API simulates random failure.
-Error displayed using reusable Alert component.
+If the API request fails while fetching room data:
 
-Loading States:
-Loader component shown while fetching rooms.
+The UI will not crash.
 
-Availability Logic:
-Used date overlap utility to prevent double bookings.
+An error message can be displayed such as “Failed to load rooms. Please try again later.”
 
-Protected Routes:
-Middleware protects both /dashboard and /bookings.
+The application can show an empty state instead of broken components.
 
-Pagination:
-Client-side pagination implemented.
-Prevents rendering large datasets at once.
+This ensures the user still gets feedback even if the server is unavailable.
 
-Scaling to 1000+ Rooms:
-- Server-side pagination
-- Virtualized lists (react-window)
-- API caching
-- Debounced search & filtering
+2. How are loading states handled?
 
-Why Context API:
-Application size is moderate.
-Redux would be unnecessary complexity.
+A loading state is used when the application is waiting for the API response.
+
+Implementation:
+
+A loading state is managed using React useState.
+
+While the data is loading, the UI shows a loading message or placeholder.
+
+Flow:
+
+Page loads
+→ API request starts
+→ Loading state displayed
+→ Rooms render after data is received
+
+This prevents empty screens and improves user experience.
+
+3. How would you scale this UI for 1000+ rooms?
+
+To handle a large number of rooms efficiently:
+
+1. Infinite Scroll
+
+Rooms are loaded in small batches instead of loading everything at once.
+
+2. Backend Pagination
+
+The API could support pagination like:
+
+/api/rooms?page=1&limit=10
+
+3. Virtualized Lists
+
+Libraries like react-window or react-virtualized can render only visible items on screen, improving performance for large datasets.
+
+4. Why did you choose your state management approach?
+
+The project uses React Hooks for state management:
+
+useState
+
+useEffect
+
+useMemo
+
+Reasons:
+
+The application is small to medium scale.
+
+React hooks keep the code simple and readable.
+
+No need for complex state management libraries.
+
+For larger applications, tools like Redux Toolkit, Zustand, or React Query could be used.
+
+Summary
+
+The project focuses on:
+
+Clean component structure
+
+Efficient filtering and rendering
+
+Simple state management
+
+Proper loading and error handling
+
+A scalable UI design
+
+This approach ensures the application is maintainable, performant, and easy to extend.

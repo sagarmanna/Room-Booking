@@ -33,27 +33,45 @@ export default function Dashboard() {
 
   const observer = useRef();
 
-  /* LOAD ROOMS */
-  useEffect(() => {
+/* LOAD ROOMS */
+useEffect(() => {
 
-    fetchRooms().then((data) => {
+  fetchRooms().then((data) => {
 
-      const stored =
-        JSON.parse(localStorage.getItem("bookings")) || [];
+    const stored =
+      JSON.parse(localStorage.getItem("bookings")) || [];
 
-      const booked = stored.filter((b) => b && b.id);
+    const booked = stored.filter((b) => b && b.id);
 
-      const updatedRooms = data.map((room) => ({
-        ...room,
-        available: !booked.some((b) => b.id === room.id),
-      }));
+    const expandedRooms = [];
 
-      setRooms(updatedRooms);
-      setLoading(false);
+    let roomCounter = 1;
 
-    });
+    for (let i = 0; i < 50; i++) {
 
-  }, []);
+      data.forEach((room) => {
+
+        const newId = `${room.id}-${i}`;
+
+        expandedRooms.push({
+          ...room,
+          id: newId,
+          name: `Room ${roomCounter}`,   // sequential room number
+          available: !booked.some((b) => b.id === newId),
+        });
+
+        roomCounter++;
+
+      });
+
+    }
+
+    setRooms(expandedRooms);
+    setLoading(false);
+
+  });
+
+}, []);
 
 const filteredRooms = useMemo(() => {
 
